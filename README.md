@@ -16,3 +16,9 @@ it where ever we want it.
 
 * wunderlist/secret
 * wunderlist/clientid
+
+### Requires patched version of wunderpy2
+
+In my github account, I have a fork copy of wunderpy2 with patches to get comments
+details. Use that module :)
+
