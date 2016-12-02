@@ -52,16 +52,40 @@ class WeeklyReport:
             yourdate = dateutil.parser.parse(task['created_at'])
             if yourdate.date() >= old:
                 # Now find all the comments for the same task
-                print("#### • " + task['title'] + "\n")
+                print("#### • {0}\n".format(task['title']))
                 comments = self.get_comments(task['id'])
                 if not comments:
                     print("")
                     continue
                 for c in comments:
-                    print("* " + c['text'])
+                    print("* {0}\n".format(c['text']))
                 print("")
             else:
                 break
+
+        print("# Ongoing Tasks\n")
+        tasks = self.client.get_tasks(list_id=self.inbox_id)
+        if tasks:
+            tasks.reverse()
+        for task in tasks:
+            print_flag = False
+            result = ""
+            result += "#### • {0}\n\n".format(task['title'])
+            comments = self.get_comments(task['id'])
+            if not comments:
+                result += "\n"
+                yourdate = dateutil.parser.parse(task['created_at'])
+                if yourdate.date() >= old:
+                    print(result) # Special case for job started without any update
+
+            for c in comments:
+                yourdate = dateutil.parser.parse(c['created_at'])
+                if yourdate.date()  >= old:
+                    print_flag = True
+                result += "* {0}\n".format(c['text'])
+
+            # If there any update then print the job
+                print(result)
 
     def get_comments(self, task_id):
         "Gets the comments for the given task"
