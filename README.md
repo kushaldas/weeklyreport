@@ -11,3 +11,8 @@ it where ever we want it.
 
     [wunderlist]
     inbox=ID_OF_INBOX
+
+### pass values
+
+* wunderlist/secret
+* wunderlist/clientid
