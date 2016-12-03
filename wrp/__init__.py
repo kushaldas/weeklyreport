@@ -85,6 +85,7 @@ class WeeklyReport:
                 result += "* {0}\n".format(c['text'])
 
             # If there any update then print the job
+            if print_flag:
                 print(result)
 
     def get_comments(self, task_id):
